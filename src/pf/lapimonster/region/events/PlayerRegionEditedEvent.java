@@ -6,6 +6,11 @@ import org.bukkit.event.HandlerList;
 
 import pf.lapimonster.region.Region;
 
+/**
+ * Called when player finish to edit region
+ * @author Haunui
+ *
+ */
 public class PlayerRegionEditedEvent extends RegionEvent implements Cancellable
 {
 	private static final HandlerList handlers = new HandlerList();

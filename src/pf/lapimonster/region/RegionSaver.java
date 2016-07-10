@@ -1,24 +1,39 @@
 package pf.lapimonster.region;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.util.Vector;
 
-public class RegionSaver {
+public class RegionSaver 
+{
 	
 	private Region region;
 	private ArrayList<String> save = new ArrayList<String>();
 	private int x = 0, y = 0, z = 0;
 	
+	/**
+	 * @param region
+	 */
 	public RegionSaver(Region region) 
 	{
 		this.region = region;
 	}
 	
+	/**
+	 * 
+	 * @param region
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
 	public RegionSaver(Region region, int x, int y, int z) 
 	{
 		this.region = region;
@@ -27,6 +42,11 @@ public class RegionSaver {
 		this.z = z;
 	}
 	
+	/**
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
 	public void setMove(int x, int y, int z) 
 	{
 		this.x = x;
@@ -34,7 +54,11 @@ public class RegionSaver {
 		this.z = z;
 	}
 	
-	public void save(Material[] m) 
+	/**
+	 * 
+	 * @param material - the material to save
+	 */
+	public void save(Material[] material) 
 	{
 		Location[] l = region.getLocations();
 		
@@ -52,15 +76,15 @@ public class RegionSaver {
 			{
 				for(int z=zmin;z<=zmax;z++) 
 				{
-					Location target = new Location(l[0].getWorld(),x,y,z);
-					if(m == null)
+					Location target = new Location(l[0].getWorld(), x, y, z);
+					if(material == null)
 					{
 						String block = blockToStr(target.getBlock());
 						if(block != null) save.add(block); 
 					}
 					else
 					{
-						for(Material a : m)
+						for(Material a : material)
 						{
 							if(target.getBlock().getType() == a) 
 							{
@@ -74,6 +98,42 @@ public class RegionSaver {
 		}
 	}
 	
+	/**
+	 * Save the region saver as a file
+	 * Used to load after a reload, or other ..
+	 * @param file - the container
+	 */
+	public void saveAsFile(File file)
+	{
+		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+		config.set("region-content", this.save);
+		
+		try
+		{
+			config.save(file);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Load the region content from file
+	 * @param file - the container
+	 */
+	public void loadFromFile(File file)
+	{
+		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+		this.save = new ArrayList<String>();
+		this.save.addAll(config.getStringList("region-content"));
+	}
+	
+	
+	
+	/**
+	 * Regen the region
+	 */
 	public void regen() 
 	{
 		for(String s : save) 
@@ -84,6 +144,12 @@ public class RegionSaver {
 				this.region.getLocations()[1].add(new Vector(this.x, this.y, this.z)));
 	}
 	
+	
+	/**
+	 * Block to String
+	 * @param b - the block
+	 * @return block in string format
+	 */
 	@SuppressWarnings("deprecation")
 	protected String blockToStr(Block b) 
 	{
@@ -102,10 +168,15 @@ public class RegionSaver {
 		b.setTypeIdAndData(Material.getMaterial(array[0]).getId(), Byte.parseByte(array[1]), true);
 	}
 	
+	/**
+	 * 
+	 * @param loc - the location
+	 * @return location in string format
+	 */
 	protected String locToStr(Location loc) 
 	{
 		String[] world = loc.getWorld().toString().split("=");
 		return world[1].replace("}", "") + "//" + loc.getBlockX() + "//" + loc.getBlockY() + "//" + loc.getBlockZ();
 	}
-
+	
 }

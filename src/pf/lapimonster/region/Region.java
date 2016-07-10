@@ -7,12 +7,22 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
+/**
+ * Abstract Region Class
+ * @author Haunui
+ *
+ */
 public abstract class Region
 {
 	protected Location l1,l2;
 	
 	private static ArrayList<Region> regions = new ArrayList<Region>();
 	
+	/**
+	 * Create the region relative to Location 1 and 2
+	 * @param l1 - Location 1
+	 * @param l2 - Location 2
+	 */
 	public Region(Location l1, Location l2) 
 	{
 		regions.add(this);
@@ -20,11 +30,19 @@ public abstract class Region
 		this.l2 = l2;
 	}
 	
+	/**
+	 * Destroy the Region
+	 */
 	public void destroy()
 	{
 		regions.remove(this);
 	}
 	
+	/**
+	 * Check if player is in region
+	 * @param location
+	 * @return true if player is in region, or false if he's out
+	 */
 	public boolean isIn(Location location) 
 	{
 		Location[] l = {l1,l2};
@@ -42,7 +60,11 @@ public abstract class Region
 				location.getWorld().equals(l1.getWorld());
 	}
 	
-	public void generate(Material m) 
+	/**
+	 * Replace all block in region by specified Material
+	 * @param material - The material will be use to replace
+	 */
+	public void generate(Material material) 
 	{
 		Location[] l = {l1,l2};
 		
@@ -61,12 +83,15 @@ public abstract class Region
 				for(int z=zmin;z<=zmax;z++) 
 				{
 					Location target = new Location(l1.getWorld(), x, y, z);
-					target.getBlock().setType(m);
+					target.getBlock().setType(material);
 				}
 			}
 		}
 	}
 	
+	/**
+	 * @return All player in region
+	 */
 	public ArrayList<Player> getPlayerIn() 
 	{
 		ArrayList<Player> ins = new ArrayList<Player>();
@@ -77,17 +102,46 @@ public abstract class Region
 		return ins;
 	}
 	
+	/**
+	 * Redefine Location
+	 * @param l1 - Location 1
+	 * @param l2 - Location 2
+	 */
 	public void setLocations(Location l1, Location l2)
 	{
-		this.l1 = l1;
-		this.l2 = l2;
+		if(l1 != null)
+			this.l1 = l1;
+		if(l2 != null)
+			this.l2 = l2;
 	}
 	
+	/**
+	 * @return array of 2 Locations
+	 */
 	public Location[] getLocations() 
 	{ 
 		return new Location[] {l1,l2}; 
 	}
 	
+	/**
+	 * @return Location 1
+	 */
+	public Location getLocation1()
+	{
+		return this.l1;
+	}
+	
+	/**
+	 * @return Location 2
+	 */
+	public Location getLocation2()
+	{
+		return this.l2;
+	}
+	
+	/**
+	 * @return a array list of all regions
+	 */
 	public static ArrayList<Region> getRegions()
 	{
 		return regions;

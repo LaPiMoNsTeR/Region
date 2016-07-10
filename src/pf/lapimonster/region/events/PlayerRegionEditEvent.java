@@ -6,14 +6,19 @@ import org.bukkit.event.HandlerList;
 
 import pf.lapimonster.region.Region;
 
+/**
+ * Called when player start to edit region
+ * @author Haunui
+ *
+ */
 public class PlayerRegionEditEvent extends RegionEvent implements Cancellable
 {
 	private static final HandlerList handlers = new HandlerList();
 	private boolean cancelled = false;
 	
-	public PlayerRegionEditEvent(Region r, Player p) 
+	public PlayerRegionEditEvent(Region region, Player player) 
 	{
-		super(r, p);
+		super(region, player);
 	}
 	
 	@Override
@@ -23,9 +28,9 @@ public class PlayerRegionEditEvent extends RegionEvent implements Cancellable
 	}
 	
 	@Override
-	public void setCancelled(boolean arg0) 
+	public void setCancelled(boolean cancelled) 
 	{
-		this.cancelled = arg0;
+		this.cancelled = cancelled;
 	}
 	
 	@Override
