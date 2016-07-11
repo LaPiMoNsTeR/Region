@@ -1,10 +1,13 @@
 package pf.lapimonster.region;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;
 
 /**
@@ -17,6 +20,14 @@ public abstract class Region
 	protected Location l1,l2;
 	
 	private static ArrayList<Region> regions = new ArrayList<Region>();
+	
+	/**
+	 * Create a neutral region
+	 */
+	public Region()
+	{
+		regions.add(this);
+	}
 	
 	/**
 	 * Create the region relative to Location 1 and 2
@@ -138,6 +149,22 @@ public abstract class Region
 	{
 		return this.l2;
 	}
+	
+	
+	public Map<String, Object> serialize()
+	{
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("l1", this.l1.serialize());
+		m.put("l2", this.l2.serialize());
+		return m;
+	}
+	
+	public void deserialize(Map<String, Object> map)
+	{
+		this.l1 = Location.deserialize(((MemorySection) map.get("l1")).getValues(false));
+		this.l2 = Location.deserialize(((MemorySection) map.get("l2")).getValues(false));
+	}
+	
 	
 	/**
 	 * @return a array list of all regions
