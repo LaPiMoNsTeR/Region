@@ -93,8 +93,7 @@ public class RegionEdit implements Listener
 		Bukkit.getServer().getPluginManager().callEvent(e1);
 		if(e1.isCancelled() == false)
 		{
-			region.l1 = this.l1;
-			region.l2 = this.l2;
+			this.region.setLocations(this.l1, this.l2);
 			player.sendMessage("Region initialisé.");
 		}
 		else player.sendMessage("Edition de la region annulé.");

@@ -28,7 +28,6 @@ public class RegionSaver
 	}
 	
 	/**
-	 * 
 	 * @param region
 	 * @param x
 	 * @param y
@@ -99,7 +98,7 @@ public class RegionSaver
 	}
 	
 	/**
-	 * Save the region saver as a file
+	 * Save the region saver as a file</br>
 	 * Used to load after a reload, or other ..
 	 * @param file - the container
 	 */
@@ -125,8 +124,11 @@ public class RegionSaver
 	public void loadFromFile(File file)
 	{
 		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
-		this.save = new ArrayList<String>();
-		this.save.addAll(config.getStringList("region-content"));
+		if(config.get("region-content") != null)
+		{
+			this.save = new ArrayList<String>();
+			this.save.addAll(config.getStringList("region-content"));
+		}
 	}
 	
 	
@@ -169,7 +171,6 @@ public class RegionSaver
 	}
 	
 	/**
-	 * 
 	 * @param loc - the location
 	 * @return location in string format
 	 */
