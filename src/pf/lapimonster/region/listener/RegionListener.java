@@ -16,6 +16,8 @@ public class RegionListener implements Listener
 	{
 		for(Region r : Region.getRegions())
 		{
+			if(r.isGood() == false) continue;
+			
 			if(r.isIn(e.getFrom()) == false && r.isIn(e.getTo()))
 			{
 				PlayerEnterRegionEvent e1 = new PlayerEnterRegionEvent(r, e.getPlayer());
