@@ -150,6 +150,16 @@ public abstract class Region
 		return this.l2;
 	}
 	
+
+	/**
+	 * @return true if region is usable
+	 */
+	public boolean isGood()
+	{
+		return this.l1 != null && this.l2 != null;
+	}
+	
+	
 	
 	public Map<String, Object> serialize()
 	{
