@@ -1,11 +1,14 @@
 package pf.lapimonster.region.updater;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
 import org.apache.commons.io.IOUtils;
+
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -45,7 +48,7 @@ public class Updater
 					Bukkit.getServer().getLogger().info("[Updater] Nouvelle version disponible : "+availableVersion);
 					Bukkit.getServer().getLogger().info("[Updater] Mise à jour en cours ...");
 					
-					UpdaterUtils.download(Updater.this.versionPath, new File(Updater.this.jarLocalPath));
+					download(Updater.this.versionPath, new File(Updater.this.jarLocalPath));
 					
 					Bukkit.getServer().getLogger().info("[Updater] Mise à jour terminé. (version "+availableVersion+")");
 					Bukkit.getServer().getLogger().info("[Updater] Rechargement du serveur ...");
@@ -56,4 +59,51 @@ public class Updater
 		}
 		else Bukkit.getServer().getLogger().info("[Updater] Plugin à jour.");
 	}
+	
+	
+	private static void download(String host, File path)
+    {
+        InputStream input = null;
+        FileOutputStream writeFile = null;
+        
+        try
+        {
+            URL url = new URL(host);
+            URLConnection connection = url.openConnection();
+            int fileLength = connection.getContentLength();
+
+            if (fileLength == -1)
+            {
+                System.out.println("Invalide URL or file.");
+                return;
+            }
+
+            input = connection.getInputStream();
+            String fileName = url.getFile().substring(url.getFile().lastIndexOf('/') + 1);
+            writeFile = new FileOutputStream(new File(path, fileName));
+            byte[] buffer = new byte[1024];
+            int read;
+
+            while ((read = input.read(buffer)) > 0)
+                writeFile.write(buffer, 0, read);
+            writeFile.flush();
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error while trying to download the file.");
+            e.printStackTrace();
+        }
+        finally
+        {
+            try
+            {
+                writeFile.close();
+                input.close();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
 }
