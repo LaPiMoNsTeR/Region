@@ -45,23 +45,23 @@ public class Updater
 				@Override
 				public void run() 
 				{
-					Bukkit.getServer().getLogger().info("[Updater] Nouvelle version disponible : "+availableVersion);
-					Bukkit.getServer().getLogger().info("[Updater] Mise à jour en cours ...");
+					Bukkit.getServer().getLogger().info("["+Updater.this.plugin.getName()+"] [Updater] Nouvelle version disponible : "+availableVersion);
+					Bukkit.getServer().getLogger().info("["+Updater.this.plugin.getName()+"] [Updater] Mise à jour en cours ...");
 					
-					download(Updater.this.versionPath, new File(Updater.this.jarLocalPath));
+					Updater.this.download(Updater.this.versionPath, new File(Updater.this.jarLocalPath));
 					
-					Bukkit.getServer().getLogger().info("[Updater] Mise à jour terminé. (version "+availableVersion+")");
-					Bukkit.getServer().getLogger().info("[Updater] Rechargement du serveur ...");
+					Bukkit.getServer().getLogger().info("["+Updater.this.plugin.getName()+"] [Updater] Mise à jour terminé. (version "+availableVersion+")");
+					Bukkit.getServer().getLogger().info("["+Updater.this.plugin.getName()+"] [Updater] Rechargement du serveur ...");
 					
 					Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "reload");
 				}
 			}.runTaskAsynchronously(this.plugin);
 		}
-		else Bukkit.getServer().getLogger().info("[Updater] Plugin à jour.");
+		else Bukkit.getServer().getLogger().info("["+Updater.this.plugin.getName()+"] [Updater] Plugin à jour.");
 	}
 	
 	
-	private static void download(String host, File path)
+	private void download(String host, File path)
     {
         InputStream input = null;
         FileOutputStream writeFile = null;
@@ -90,7 +90,7 @@ public class Updater
         }
         catch (IOException e)
         {
-            System.out.println("Error while trying to download the file.");
+            System.out.println("["+this.plugin.getName()+"] [Updater] Error while trying to download the file.");
             e.printStackTrace();
         }
         finally
