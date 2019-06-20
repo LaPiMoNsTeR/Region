@@ -1,0 +1,10 @@
+plugin.yml check:
+  stage: build
+  script:
+    - bash build/check.sh
+
+maven compile:
+  stage: test
+  script:
+    - mvn compile package
+    - mvn clean
