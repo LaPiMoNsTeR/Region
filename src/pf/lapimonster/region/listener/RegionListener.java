@@ -1,13 +1,13 @@
-package pf.haunui.region.listener;
+package pf.lapimonster.region.listener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import pf.haunui.region.Region;
-import pf.haunui.region.events.PlayerEnterRegionEvent;
-import pf.haunui.region.events.PlayerLeaveRegionEvent;
+import pf.lapimonster.region.Region;
+import pf.lapimonster.region.events.PlayerEnterRegionEvent;
+import pf.lapimonster.region.events.PlayerLeaveRegionEvent;
 
 public class RegionListener implements Listener
 {

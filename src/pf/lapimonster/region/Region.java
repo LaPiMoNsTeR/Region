@@ -1,4 +1,4 @@
-package pf.haunui.region;
+package pf.lapimonster.region;
 
 import java.util.ArrayList;
 import java.util.HashMap;

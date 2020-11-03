@@ -1,9 +1,9 @@
-package pf.haunui.region.events;
+package pf.lapimonster.region.events;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerEvent;
 
-import pf.haunui.region.Region;
+import pf.lapimonster.region.Region;
 
 /**
  * Abstract class for Region event

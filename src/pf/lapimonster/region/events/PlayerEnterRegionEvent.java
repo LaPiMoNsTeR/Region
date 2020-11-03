@@ -1,10 +1,10 @@
-package pf.haunui.region.events;
+package pf.lapimonster.region.events;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 
-import pf.haunui.region.Region;
+import pf.lapimonster.region.Region;
 
 /**
  * Called when player enter in region

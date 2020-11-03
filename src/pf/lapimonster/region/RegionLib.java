@@ -1,9 +1,12 @@
-package pf.haunui.region;
+package pf.lapimonster.region;
+
+import java.io.IOException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import pf.haunui.region.listener.RegionListener;
+import pf.lapimonster.region.listener.RegionListener;
+import pf.lapimonster.region.updater.Updater;
 
 public class RegionLib extends JavaPlugin
 {
@@ -13,6 +16,16 @@ public class RegionLib extends JavaPlugin
 	public void onEnable() 
 	{
 		instance = this;
+		
+		try
+		{
+			new Updater(this);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		
 		Bukkit.getServer().getPluginManager().registerEvents(new RegionListener(), this);
 	}
 	

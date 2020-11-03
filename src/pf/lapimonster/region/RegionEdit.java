@@ -1,4 +1,4 @@
-package pf.haunui.region;
+package pf.lapimonster.region;
 
 import java.util.ArrayList;
 
@@ -12,8 +12,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import pf.haunui.region.events.PlayerRegionEditEvent;
-import pf.haunui.region.events.PlayerRegionEditedEvent;
+import pf.lapimonster.region.events.PlayerRegionEditEvent;
+import pf.lapimonster.region.events.PlayerRegionEditedEvent;
 
 /**
  * Used for Edit a region

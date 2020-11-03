@@ -1,4 +1,4 @@
 name: Region
 version: 3.0
 author: LaPiMoNsTeR
-main: pf.haunui.region.RegionLib
+main: pf.lapimonster.region.RegionLib
